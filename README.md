@@ -15,9 +15,17 @@ hunter_add_package(Boost COMPONENTS program_options)
 find_package(Boost CONFIG REQUIRED program_options)
 add_executable(foo main.c++ foo1.c++ foo2.c++)
 # target_include_directories(foo, "src")
-target_compile_options(foo PRIVATE "-Wall" "-Werror" "-O2" "-g")
+# -O2 -O3 -g is selected by BUILD_TYPE
+# Can also use generator expression, e.g. $<$<CONFIG:DEBUG>:"-g">
+target_compile_options(foo PRIVATE "-Wall" "-Werror")
 # use meta-features cxx_std_17
 target_compile_features(foo PRIVATE cxx_std_17)
 target_include_directories(foo PRIVATE "src")
 target_link_libraries(foo PRIVATE Boost::program_options)
+```
+- Build
+```
+$ cd <project directory> && mkdir build && cd build
+$ CXX=clang++-5.0 cmake -DMAKE_BUILD_TYPE=DEBUG ..
+$ make -j 8 -DCMAKE_BUILD_TYPE=DEBUG
 ```
