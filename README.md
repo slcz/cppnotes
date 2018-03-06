@@ -22,6 +22,7 @@ target_compile_options(foo PRIVATE "-Wall" "-Werror")
 target_compile_features(foo PRIVATE cxx_std_17)
 target_include_directories(foo PRIVATE "src")
 target_link_libraries(foo PRIVATE Boost::program_options)
+# add_subdirecotry()
 ```
 - Build
 ```
